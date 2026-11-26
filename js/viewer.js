@@ -201,7 +201,7 @@
       var used = C.TAGS.filter(function (g) { return data.items.some(function (i) { return !i.hidden && i.tags.indexOf(g) >= 0; }); });
       used.forEach(function (g) {
         var on = state.tags.indexOf(g) >= 0;
-        host.appendChild(el('button', { type: 'button', class: 'mv-tagbtn mv-tag--' + g + (on ? ' is-on' : ''), 'data-tag': g, 'aria-pressed': String(on),
+        host.appendChild(el('button', { type: 'button', class: 'mv-tagbtn' + (on ? ' is-on' : ''), 'data-tag': g, 'aria-pressed': String(on),
           onclick: function () { var k = state.tags.indexOf(g); if (k >= 0) state.tags.splice(k, 1); else state.tags.push(g); renderTagFilters(); renderList(); } }, [t().tags[g]]));
       });
     }
