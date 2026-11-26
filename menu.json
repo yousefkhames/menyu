@@ -1,0 +1,334 @@
+{
+  "v": 1,
+  "brand": {
+    "nameAr": "ركن القهوة",
+    "nameEn": "Qahwa Corner",
+    "taglineAr": "قهوة مختصة وحلويات طازجة",
+    "taglineEn": "Specialty coffee and fresh sweets",
+    "logo": "",
+    "addressAr": "شارع فؤاد، الإسكندرية",
+    "addressEn": "Fouad St, Alexandria",
+    "instagram": "qahwa.corner",
+    "wifiName": "QahwaCorner",
+    "wifiPass": "coffee2026"
+  },
+  "theme": {
+    "primary": "#5b3a29",
+    "accent": "#d9a441",
+    "bg": "#fbf6ee",
+    "text": "#2a1d15",
+    "radius": "soft",
+    "layout": "cards"
+  },
+  "locale": {
+    "lang": "ar",
+    "switcher": true,
+    "currencyEn": "EGP",
+    "currencyAr": "ج.م",
+    "pos": "after",
+    "decimals": 0,
+    "digits": "latin"
+  },
+  "order": {
+    "enabled": true,
+    "whatsapp": "01000000000",
+    "countryCode": "20",
+    "askTable": true
+  },
+  "publicUrl": "",
+  "categories": [
+    {
+      "id": "hot",
+      "nameAr": "مشروبات ساخنة",
+      "nameEn": "Hot drinks",
+      "icon": "☕",
+      "hidden": false
+    },
+    {
+      "id": "cold",
+      "nameAr": "مشروبات باردة",
+      "nameEn": "Cold drinks",
+      "icon": "🧊",
+      "hidden": false
+    },
+    {
+      "id": "sweet",
+      "nameAr": "حلويات",
+      "nameEn": "Desserts",
+      "icon": "🍰",
+      "hidden": false
+    },
+    {
+      "id": "bites",
+      "nameAr": "خفيف",
+      "nameEn": "Light bites",
+      "icon": "🥐",
+      "hidden": false
+    }
+  ],
+  "items": [
+    {
+      "id": "i1",
+      "cat": "hot",
+      "nameAr": "إسبريسو",
+      "nameEn": "Espresso",
+      "descAr": "شوت مركز من حبوب محمصة محلياً",
+      "descEn": "A concentrated shot of locally roasted beans",
+      "price": 45,
+      "icon": "☕",
+      "image": "",
+      "tags": [
+        "popular"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": [
+        {
+          "ar": "سينجل",
+          "en": "Single",
+          "price": 45
+        },
+        {
+          "ar": "دبل",
+          "en": "Double",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "id": "i2",
+      "cat": "hot",
+      "nameAr": "كابتشينو",
+      "nameEn": "Cappuccino",
+      "descAr": "إسبريسو مع حليب مبخر ورغوة كثيفة",
+      "descEn": "Espresso with steamed milk and thick foam",
+      "price": 70,
+      "icon": "☕",
+      "image": "",
+      "tags": [],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": [
+        {
+          "ar": "وسط",
+          "en": "Medium",
+          "price": 70
+        },
+        {
+          "ar": "كبير",
+          "en": "Large",
+          "price": 85
+        }
+      ]
+    },
+    {
+      "id": "i3",
+      "cat": "hot",
+      "nameAr": "لاتيه",
+      "nameEn": "Latte",
+      "descAr": "حليب مخملي وإسبريسو ناعم",
+      "descEn": "Silky milk and smooth espresso",
+      "price": 75,
+      "icon": "🥛",
+      "image": "",
+      "tags": [],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": [
+        {
+          "ar": "وسط",
+          "en": "Medium",
+          "price": 75
+        },
+        {
+          "ar": "كبير",
+          "en": "Large",
+          "price": 90
+        }
+      ]
+    },
+    {
+      "id": "i4",
+      "cat": "hot",
+      "nameAr": "شاي بالنعناع",
+      "nameEn": "Mint tea",
+      "descAr": "نعناع طازج وشاي أخضر",
+      "descEn": "Fresh mint and green tea",
+      "price": 35,
+      "icon": "🍵",
+      "image": "",
+      "tags": [
+        "veg"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i5",
+      "cat": "hot",
+      "nameAr": "قهوة تركي",
+      "nameEn": "Turkish coffee",
+      "descAr": "تقدم مع قطعة راحة",
+      "descEn": "Served with a piece of delight",
+      "price": 40,
+      "icon": "☕",
+      "image": "",
+      "tags": [
+        "popular"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i6",
+      "cat": "cold",
+      "nameAr": "آيس لاتيه",
+      "nameEn": "Iced latte",
+      "descAr": "إسبريسو بارد مع حليب وثلج",
+      "descEn": "Cold espresso with milk and ice",
+      "price": 80,
+      "icon": "🧊",
+      "image": "",
+      "tags": [
+        "new"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i7",
+      "cat": "cold",
+      "nameAr": "عصير ليمون بالنعناع",
+      "nameEn": "Lemon mint",
+      "descAr": "ليمون معصور ونعناع وثلج مجروش",
+      "descEn": "Squeezed lemon, mint and crushed ice",
+      "price": 55,
+      "icon": "🍋",
+      "image": "",
+      "tags": [
+        "veg"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i8",
+      "cat": "cold",
+      "nameAr": "موهيتو فراولة",
+      "nameEn": "Strawberry mojito",
+      "descAr": "فراولة وليمون وصودا",
+      "descEn": "Strawberry, lime and soda",
+      "price": 65,
+      "icon": "🍓",
+      "image": "",
+      "tags": [],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i9",
+      "cat": "sweet",
+      "nameAr": "كنافة بالقشطة",
+      "nameEn": "Kunafa with cream",
+      "descAr": "ساخنة مع شربات خفيف",
+      "descEn": "Warm, with light syrup",
+      "price": 90,
+      "icon": "🍮",
+      "image": "",
+      "tags": [
+        "popular"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i10",
+      "cat": "sweet",
+      "nameAr": "براونيز",
+      "nameEn": "Brownies",
+      "descAr": "شوكولاتة داكنة وجوز",
+      "descEn": "Dark chocolate and walnuts",
+      "price": 70,
+      "icon": "🍫",
+      "image": "",
+      "tags": [],
+      "soldOut": true,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i11",
+      "cat": "sweet",
+      "nameAr": "تشيز كيك",
+      "nameEn": "Cheesecake",
+      "descAr": "قطعة بصوص التوت",
+      "descEn": "A slice with berry sauce",
+      "price": 95,
+      "icon": "🍰",
+      "image": "",
+      "tags": [
+        "new"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i12",
+      "cat": "bites",
+      "nameAr": "كرواسون جبنة",
+      "nameEn": "Cheese croissant",
+      "descAr": "مخبوز كل صباح",
+      "descEn": "Baked every morning",
+      "price": 60,
+      "icon": "🥐",
+      "image": "",
+      "tags": [
+        "veg"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i13",
+      "cat": "bites",
+      "nameAr": "ساندويتش حلومي",
+      "nameEn": "Halloumi sandwich",
+      "descAr": "جبنة حلومي وطماطم وزعتر",
+      "descEn": "Halloumi, tomato and za'atar",
+      "price": 85,
+      "icon": "🥪",
+      "image": "",
+      "tags": [
+        "veg"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    },
+    {
+      "id": "i14",
+      "cat": "bites",
+      "nameAr": "ساندويتش سجق حار",
+      "nameEn": "Spicy sausage sandwich",
+      "descAr": "سجق إسكندراني على الطريقة المعروفة",
+      "descEn": "Alexandrian sausage, the classic way",
+      "price": 95,
+      "icon": "🌶️",
+      "image": "",
+      "tags": [
+        "spicy"
+      ],
+      "soldOut": false,
+      "hidden": false,
+      "sizes": []
+    }
+  ]
+}
