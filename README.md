@@ -83,3 +83,4 @@ MIT. See `LICENSE`.
 - "Copy order text" now reports a failure honestly when the browser blocks copying (it used to say "Copied" regardless).
 - Reviewed and already solid: data normaliser on load/import, undo after import, country-code WhatsApp links, empty states.
 - Limit: WhatsApp links are only verified as generated URLs.
+- Offline: a service worker precaches the app shell and the bundled fonts (added in round 2 review).
