@@ -1,5 +1,5 @@
 /* Menyu service worker: network first, cache fallback, so the app and menu keep working offline after one visit. */
-const CACHE = 'menyu-v1';
+const CACHE = 'menyu-v2';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => e.waitUntil(
   caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())

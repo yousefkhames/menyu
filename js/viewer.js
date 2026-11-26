@@ -7,7 +7,7 @@
     ar: {
       search: 'ابحث في القائمة', all: 'الكل', add: 'أضف', soldOut: 'نفد', from: 'ابتداءً من',
       viewOrder: 'عرض الطلب', yourOrder: 'طلبك', total: 'الإجمالي', table: 'رقم الطاولة', yourName: 'الاسم (اختياري)',
-      note: 'ملاحظات (اختياري)', sendWa: 'إرسال الطلب عبر واتساب', copy: 'نسخ نص الطلب', copied: 'تم النسخ',
+      note: 'ملاحظات (اختياري)', sendWa: 'إرسال الطلب عبر واتساب', copy: 'نسخ نص الطلب',copyFail: 'تعذر النسخ، انسخ النص يدوياً', copied: 'تم النسخ',
       clear: 'مسح الطلب', empty: 'طلبك فارغ', none: 'لا توجد أصناف مطابقة', close: 'إغلاق', addTo: 'أضف إلى الطلب',
       size: 'الحجم', wifi: 'واي فاي', pass: 'كلمة المرور', loadFail: 'تعذر تحميل القائمة', lang: 'English',
       noWa: 'لم يتم ضبط رقم واتساب للمحل. انسخ الطلب وأعطه للنادل.', inOrder: 'في الطلب',
@@ -17,7 +17,7 @@
     en: {
       search: 'Search the menu', all: 'All', add: 'Add', soldOut: 'Sold out', from: 'From',
       viewOrder: 'View order', yourOrder: 'Your order', total: 'Total', table: 'Table number', yourName: 'Name (optional)',
-      note: 'Notes (optional)', sendWa: 'Send order on WhatsApp', copy: 'Copy order text', copied: 'Copied',
+      note: 'Notes (optional)', sendWa: 'Send order on WhatsApp', copy: 'Copy order text', copyFail: 'Copy failed, select the text manually', copied: 'Copied',
       clear: 'Clear order', empty: 'Your order is empty', none: 'No matching items', close: 'Close', addTo: 'Add to order',
       size: 'Size', wifi: 'Wi-Fi', pass: 'Password', loadFail: 'Could not load the menu', lang: 'العربية',
       noWa: 'This shop has no WhatsApp number set. Copy the order and show it to the waiter.', inOrder: 'In order',
@@ -311,9 +311,10 @@
         } else body.appendChild(el('p', { class: 'mv-hint', text: t().noWa }));
         var copyBtn = el('button', { type: 'button', class: 'mv-ghost', id: 'mv-copy', onclick: function () {
           var txt = orderText();
+          function failed() { copyBtn.textContent = t().copyFail || t().copy; setTimeout(function () { copyBtn.textContent = t().copy; }, 2500); }
           function done() { copyBtn.textContent = t().copied; setTimeout(function () { copyBtn.textContent = t().copy; }, 1500); }
-          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { fallbackCopy(txt); done(); });
-          else { fallbackCopy(txt); done(); }
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { if (fallbackCopy(txt)) done(); else failed(); });
+          else if (fallbackCopy(txt)) done(); else failed();
         }, text: t().copy });
         body.appendChild(copyBtn);
         body.appendChild(el('button', { type: 'button', class: 'mv-link', id: 'mv-clear', onclick: function () { state.cart = []; saveCart(); closeSheet(); renderList(); renderCartBar(); }, text: t().clear }));
@@ -325,8 +326,10 @@
     function fallbackCopy(txt) {
       var ta = el('textarea', { style: 'position:fixed;opacity:0' });
       ta.value = txt; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch (e) {}
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
       ta.remove();
+      return ok;
     }
 
     /* ---------- skeleton ---------- */
