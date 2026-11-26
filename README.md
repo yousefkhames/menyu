@@ -13,6 +13,15 @@ Arabic and English with real RTL. Your logo, your colors, your currency. No serv
 <img src="docs/menu-noir.png" width="230" alt="Same menu rebranded with the Noir palette and list layout">
 </p>
 
+## Screenshots
+
+Captured from the live site (https://yousefkhames.github.io/menyu/).
+
+<p>
+  <img src="docs/screenshots/live-desktop.png" alt="menyu desktop view" width="640">
+  <img src="docs/screenshots/live-mobile.png" alt="menyu mobile view" width="200">
+</p>
+
 ## The pitch
 
 A cafe owner wants a menu on a QR code, in two languages, in their own colors, today. Menyu is one folder of static files. You open the builder, type the shop name, drop in a logo, pick colors, add the items, and print the QR. Customers scan, browse in Arabic or English, tap items into an order, and send it to the shop on WhatsApp with their table number already filled in.
