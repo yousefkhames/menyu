@@ -387,6 +387,19 @@ async function step(name, fn) {
       assert.equal(await p.locator('[data-confirm-add]').count(), 0);
       await p.context().close();
     });
+    await step('offline: menu and admin reload from the service worker cache', async () => {
+      const p = await newPage({ width: 390, height: 844 });
+      await p.goto(base + '/menu.html');
+      await p.locator('.mv-title').waitFor();
+      await p.evaluate(() => navigator.serviceWorker.ready.then(() => 1));
+      await p.reload(); await p.locator('.mv-title').waitFor();   // now controlled and cached
+      await p.waitForTimeout(500);
+      await p.context().setOffline(true);
+      await p.reload(); await p.locator('.mv-title').waitFor();
+      assert.equal(await p.locator('.mv-item').count(), 14);
+      await p.context().setOffline(false);
+      await p.context().close();
+    });
     await step('mobile admin: tabs, preview tab, no horizontal overflow, 44px touch targets on main actions', async () => {
       const p = await newPage({ width: 360, height: 740 });
       await p.goto(base + '/index.html'); await p.waitForSelector('body[data-ready="1"]');
@@ -416,7 +429,7 @@ async function step(name, fn) {
     });
 
     await step('no console or page errors anywhere', async () => {
-      const real = errors.filter(e => !/favicon|ERR_FILE_NOT_FOUND|wa\.me/.test(e));
+      const real = errors.filter(e => !/favicon|ERR_FILE_NOT_FOUND|wa\.me|ERR_FAILED/.test(e));
       assert.deepEqual(real, []);
     });
     console.log('\nE2E passed: ' + passed + ' steps');

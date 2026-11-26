@@ -15,5 +15,6 @@
 <script src="js/core.js"></script>
 <script src="js/viewer.js"></script>
 <script src="js/menu-boot.js"></script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:" && !window.MENYU_DATA) navigator.serviceWorker.register("sw.js").catch(function () {});</script>
 </body>
 </html>

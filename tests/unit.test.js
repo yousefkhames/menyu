@@ -18,6 +18,9 @@ test('readableOn picks white on dark and dark on light', () => {
 test('all presets have readable body text', () => {
   for (const p of C.PRESETS) assert.ok(C.contrast(p.bg, p.text) >= 7, p.id);
 });
+test('presets: primary stays visible on the background and on cards', () => {
+  for (const p of C.PRESETS) assert.ok(C.contrast(p.primary, p.bg) >= 3.9, p.id + ' ' + C.contrast(p.primary, p.bg));
+});
 test('contrast of black on white is 21', () => assert.ok(Math.abs(C.contrast('#000000', '#ffffff') - 21) < 0.01));
 
 test('formatPrice: symbol position, decimals, Arabic digits', () => {

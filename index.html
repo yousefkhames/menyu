@@ -7,6 +7,7 @@
 <title>Menyu · QR menu builder</title>
 <meta name="description" content="White-label QR menu builder for cafes and restaurants. Arabic and English. Free, no server.">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/admin.css">
 </head>
@@ -38,5 +39,6 @@
 <script src="js/vendor/qrcode.js"></script>
 <script src="js/export.js"></script>
 <script src="js/admin.js"></script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(function () {});</script>
 </body>
 </html>
