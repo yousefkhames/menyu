@@ -174,3 +174,15 @@ a.mv-info:hover { text-decoration: underline; }
 @keyframes mv-fade { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .mv *, .mv-sheet * { animation: none !important; transition: none !important; } }
 @media print { .mv-cartbar, .mv-tools, .mv-add, .mv-lang { display: none !important; } .mv-hero { color-adjust: exact; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+
+/* built-in icons */
+.mv svg .f { fill: var(--a); fill-opacity: .5; }
+.mv-thumb--ph svg, .mv-big--ph svg { width: 62%; height: 62%; color: var(--pc); }
+.mv-big--ph svg { width: 120px; height: 120px; }
+.mv-cat-i { display: inline-grid; width: 30px; height: 30px; }
+.mv-cat-i svg { width: 100%; height: 100%; }
+.mv-chip { display: inline-flex; align-items: center; gap: 6px; }
+.mv-chip-i { display: inline-grid; width: 20px; height: 20px; }
+.mv-chip-i svg { width: 100%; height: 100%; }
+.mv-chip.is-on .mv-chip-i svg { color: var(--pt); }
+.mv-chip.is-on .mv-chip-i svg .f { fill: var(--pt); fill-opacity: .25; }

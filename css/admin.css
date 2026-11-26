@@ -23,7 +23,7 @@ body[data-tab=preview] .pv{display:block}
 
 .tabs{position:fixed;inset-inline:0;bottom:0;z-index:12;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
 .tab{flex:1;border:0;background:none;padding:8px 4px 6px;display:flex;flex-direction:column;align-items:center;gap:0;color:var(--mut);font-size:13px;font-weight:600}
-.tab i{font-style:normal;font-size:20px;line-height:1.3}
+.tab i{font-style:normal;line-height:0;padding:3px 0}
 .tab.is-on{color:var(--p);box-shadow:inset 0 3px 0 var(--p)}
 
 @media (min-width:1000px){
@@ -133,6 +133,18 @@ body[data-tab=preview] .pv{display:block}
 .toast[hidden]{display:none}
 .toast button{background:none;border:0;color:var(--a);font-weight:700;text-decoration:underline}
 @media (min-width:1000px){.toast{bottom:24px}}
+
+/* icons */
+svg .f{fill:var(--a);fill-opacity:.5}
+.cat-i{display:inline-grid;width:34px;height:34px;color:var(--pd)}
+.cat-i svg,.rt--ph svg{width:100%;height:100%}
+.rt--ph svg{width:70%;height:70%;color:var(--pd)}
+.rt--ph{place-items:center}
+.iconpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px}
+.ipb{height:46px;border:1.5px solid var(--line);background:#fff;border-radius:12px;display:grid;place-items:center;padding:6px;color:var(--ink)}
+.ipb.is-on{border-color:var(--p);box-shadow:inset 0 0 0 1.5px var(--p);background:#fff4ec}
+.ipi{display:block;width:100%;height:100%}
+.ipi svg{width:100%;height:100%}
 
 /* printing table cards */
 #print-area{display:none}

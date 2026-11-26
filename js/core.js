@@ -19,6 +19,31 @@
     { id: 'noir', en: 'Noir', ar: 'نوار', primary: '#e6b450', accent: '#e6b450', bg: '#16130f', text: '#f4ede0' }
   ];
 
+
+  /* Built-in line illustrations (own drawings, no emoji fonts needed). "f" = accent fill. */
+  var ICONS = {
+    cup: '<path class="f" d="M14 26h30v12a14 14 0 0 1-14 14h-2a14 14 0 0 1-14-14z"/><path d="M44 30h4a6 6 0 0 1 0 12h-5"/><path d="M24 8c-3 4 3 6 0 10M34 8c-3 4 3 6 0 10"/><path d="M10 56h38"/>',
+    glass: '<path d="M18 14h28l-4 38a4 4 0 0 1-4 4H26a4 4 0 0 1-4-4z"/><path class="f" d="M20.2 28h23.6l-1.8 24H22z"/><path d="M38 6l-4 22"/><rect x="26" y="34" width="8" height="8" rx="2"/>',
+    cake: '<path class="f" d="M8 50V32l48-12v30z"/><path d="M8 41l48-12"/><circle cx="46" cy="14" r="4" class="f"/><path d="M46 10V6"/>',
+    croissant: '<path class="f" d="M6 42c4-16 14-24 26-24s22 8 26 24c-4 5-9 5-13 0-4 5-9 5-13 0-4 5-9 5-13 0-4 5-9 5-13 0z"/><path d="M24 20l-4 16M40 20l4 16M32 18v22"/>',
+    sandwich: '<path class="f" d="M8 30c0-10 10-16 24-16s24 6 24 16z"/><path d="M8 37c6-4 10 4 16 0s10 4 16 0 10 4 16 0"/><path d="M10 44h44v4a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6z"/>',
+    burger: '<path class="f" d="M8 28c0-9 10-15 24-15s24 6 24 15z"/><path d="M8 36h48M10 44h44"/><path class="f" d="M10 36h44v8H10z"/><path d="M10 44h44v3a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6z"/><path d="M22 20h2M32 18h2M42 20h2"/>',
+    pizza: '<path class="f" d="M32 58L6 16c16-9 36-9 52 0z"/><circle cx="24" cy="26" r="3.5"/><circle cx="38" cy="26" r="3.5"/><circle cx="31" cy="40" r="3.5"/>',
+    salad: '<path d="M6 32h52a26 22 0 0 1-52 0z" class="f"/><path d="M18 32c-2-9 4-16 12-16M30 32c-3-12 6-20 14-18M42 32c0-7 5-11 10-11"/>',
+    plate: '<circle cx="32" cy="32" r="24"/><circle class="f" cx="32" cy="32" r="14"/>',
+    fries: '<path d="M16 28h32l-4 28H20z" class="f"/><path d="M22 28V10M30 28V6M38 28V10M46 28V14"/>',
+    icecream: '<path d="M20 30h24L32 60z" class="f"/><path d="M16 30a16 16 0 0 1 32 0z"/><path d="M26 36l6 12M36 36l-4 12"/>',
+    donut: '<circle cx="32" cy="32" r="24" class="f"/><circle cx="32" cy="32" r="8"/><path d="M16 22l4 3M46 18l-2 5M48 40l-5-2M20 44l5-2"/>',
+    kebab: '<path d="M6 58L58 6"/><circle cx="20" cy="44" r="6" class="f"/><circle cx="32" cy="32" r="6" class="f"/><circle cx="44" cy="20" r="6" class="f"/>',
+    bread: '<path class="f" d="M8 30c0-12 10-18 24-18s24 6 24 18c0 4-3 4-4 4v20H12V34c-1 0-4 0-4-4z"/><path d="M24 22l-3 8M34 20l-3 10M44 22l-3 8"/>',
+    juice: '<path class="f" d="M20 22h24l-3 34H23z"/><path d="M18 22h28M34 8l-4 14"/><circle cx="32" cy="38" r="6"/><path d="M32 32v12M26 38h12"/>'
+  };
+  var ICON_KEYS = Object.keys(ICONS);
+  function iconSvg(key) {
+    if (!Object.prototype.hasOwnProperty.call(ICONS, key)) return '';
+    return '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICONS[key] + '</svg>';
+  }
+
   function uid(prefix) {
     return (prefix || 'x') + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-3);
   }
@@ -130,30 +155,30 @@
     d.theme.primary = p.primary; d.theme.accent = p.accent; d.theme.bg = p.bg; d.theme.text = p.text;
     d.order.whatsapp = '01000000000';
     var cats = [
-      ['hot', 'مشروبات ساخنة', 'Hot drinks', '☕'],
-      ['cold', 'مشروبات باردة', 'Cold drinks', '🧊'],
-      ['sweet', 'حلويات', 'Desserts', '🍰'],
-      ['bites', 'خفيف', 'Light bites', '🥐']
+      ['hot', 'مشروبات ساخنة', 'Hot drinks', 'cup'],
+      ['cold', 'مشروبات باردة', 'Cold drinks', 'glass'],
+      ['sweet', 'حلويات', 'Desserts', 'cake'],
+      ['bites', 'خفيف', 'Light bites', 'croissant']
     ];
     d.categories = cats.map(function (c) { return { id: c[0], nameAr: c[1], nameEn: c[2], icon: c[3], hidden: false }; });
     function it(id, cat, ar, en, dar, den, price, icon, tags, sizes) {
       return { id: id, cat: cat, nameAr: ar, nameEn: en, descAr: dar, descEn: den, price: price, icon: icon, image: '', tags: tags || [], soldOut: false, hidden: false, sizes: sizes || [] };
     }
     d.items = [
-      it('i1', 'hot', 'إسبريسو', 'Espresso', 'شوت مركز من حبوب محمصة محلياً', 'A concentrated shot of locally roasted beans', 45, '☕', ['popular'], [{ ar: 'سينجل', en: 'Single', price: 45 }, { ar: 'دبل', en: 'Double', price: 65 }]),
-      it('i2', 'hot', 'كابتشينو', 'Cappuccino', 'إسبريسو مع حليب مبخر ورغوة كثيفة', 'Espresso with steamed milk and thick foam', 70, '☕', [], [{ ar: 'وسط', en: 'Medium', price: 70 }, { ar: 'كبير', en: 'Large', price: 85 }]),
-      it('i3', 'hot', 'لاتيه', 'Latte', 'حليب مخملي وإسبريسو ناعم', 'Silky milk and smooth espresso', 75, '🥛', [], [{ ar: 'وسط', en: 'Medium', price: 75 }, { ar: 'كبير', en: 'Large', price: 90 }]),
-      it('i4', 'hot', 'شاي بالنعناع', 'Mint tea', 'نعناع طازج وشاي أخضر', 'Fresh mint and green tea', 35, '🍵', ['veg']),
-      it('i5', 'hot', 'قهوة تركي', 'Turkish coffee', 'تقدم مع قطعة راحة', 'Served with a piece of delight', 40, '☕', ['popular']),
-      it('i6', 'cold', 'آيس لاتيه', 'Iced latte', 'إسبريسو بارد مع حليب وثلج', 'Cold espresso with milk and ice', 80, '🧊', ['new']),
-      it('i7', 'cold', 'عصير ليمون بالنعناع', 'Lemon mint', 'ليمون معصور ونعناع وثلج مجروش', 'Squeezed lemon, mint and crushed ice', 55, '🍋', ['veg']),
-      it('i8', 'cold', 'موهيتو فراولة', 'Strawberry mojito', 'فراولة وليمون وصودا', 'Strawberry, lime and soda', 65, '🍓', []),
-      it('i9', 'sweet', 'كنافة بالقشطة', 'Kunafa with cream', 'ساخنة مع شربات خفيف', 'Warm, with light syrup', 90, '🍮', ['popular']),
-      it('i10', 'sweet', 'براونيز', 'Brownies', 'شوكولاتة داكنة وجوز', 'Dark chocolate and walnuts', 70, '🍫', []),
-      it('i11', 'sweet', 'تشيز كيك', 'Cheesecake', 'قطعة بصوص التوت', 'A slice with berry sauce', 95, '🍰', ['new']),
-      it('i12', 'bites', 'كرواسون جبنة', 'Cheese croissant', 'مخبوز كل صباح', 'Baked every morning', 60, '🥐', ['veg']),
-      it('i13', 'bites', 'ساندويتش حلومي', 'Halloumi sandwich', 'جبنة حلومي وطماطم وزعتر', 'Halloumi, tomato and za\'atar', 85, '🥪', ['veg']),
-      it('i14', 'bites', 'ساندويتش سجق حار', 'Spicy sausage sandwich', 'سجق إسكندراني على الطريقة المعروفة', 'Alexandrian sausage, the classic way', 95, '🌶️', ['spicy'])
+      it('i1', 'hot', 'إسبريسو', 'Espresso', 'شوت مركز من حبوب محمصة محلياً', 'A concentrated shot of locally roasted beans', 45, 'cup', ['popular'], [{ ar: 'سينجل', en: 'Single', price: 45 }, { ar: 'دبل', en: 'Double', price: 65 }]),
+      it('i2', 'hot', 'كابتشينو', 'Cappuccino', 'إسبريسو مع حليب مبخر ورغوة كثيفة', 'Espresso with steamed milk and thick foam', 70, 'cup', [], [{ ar: 'وسط', en: 'Medium', price: 70 }, { ar: 'كبير', en: 'Large', price: 85 }]),
+      it('i3', 'hot', 'لاتيه', 'Latte', 'حليب مخملي وإسبريسو ناعم', 'Silky milk and smooth espresso', 75, 'cup', [], [{ ar: 'وسط', en: 'Medium', price: 75 }, { ar: 'كبير', en: 'Large', price: 90 }]),
+      it('i4', 'hot', 'شاي بالنعناع', 'Mint tea', 'نعناع طازج وشاي أخضر', 'Fresh mint and green tea', 35, 'cup', ['veg']),
+      it('i5', 'hot', 'قهوة تركي', 'Turkish coffee', 'تقدم مع قطعة راحة', 'Served with a piece of delight', 40, 'cup', ['popular']),
+      it('i6', 'cold', 'آيس لاتيه', 'Iced latte', 'إسبريسو بارد مع حليب وثلج', 'Cold espresso with milk and ice', 80, 'glass', ['new']),
+      it('i7', 'cold', 'عصير ليمون بالنعناع', 'Lemon mint', 'ليمون معصور ونعناع وثلج مجروش', 'Squeezed lemon, mint and crushed ice', 55, 'juice', ['veg']),
+      it('i8', 'cold', 'موهيتو فراولة', 'Strawberry mojito', 'فراولة وليمون وصودا', 'Strawberry, lime and soda', 65, 'glass', []),
+      it('i9', 'sweet', 'كنافة بالقشطة', 'Kunafa with cream', 'ساخنة مع شربات خفيف', 'Warm, with light syrup', 90, 'plate', ['popular']),
+      it('i10', 'sweet', 'براونيز', 'Brownies', 'شوكولاتة داكنة وجوز', 'Dark chocolate and walnuts', 70, 'cake', []),
+      it('i11', 'sweet', 'تشيز كيك', 'Cheesecake', 'قطعة بصوص التوت', 'A slice with berry sauce', 95, 'cake', ['new']),
+      it('i12', 'bites', 'كرواسون جبنة', 'Cheese croissant', 'مخبوز كل صباح', 'Baked every morning', 60, 'croissant', ['veg']),
+      it('i13', 'bites', 'ساندويتش حلومي', 'Halloumi sandwich', 'جبنة حلومي وطماطم وزعتر', 'Halloumi, tomato and za\'atar', 85, 'sandwich', ['veg']),
+      it('i14', 'bites', 'ساندويتش سجق حار', 'Spicy sausage sandwich', 'سجق إسكندراني على الطريقة المعروفة', 'Alexandrian sausage, the classic way', 95, 'sandwich', ['spicy'])
     ];
     d.items[11].soldOut = false;
     d.items[9].soldOut = true;
@@ -214,7 +239,7 @@
       if (!c || typeof c !== 'object') return;
       var id = freshId(c.id, 'c');
       catIds[id] = 1;
-      out.categories.push({ id: id, nameAr: str(c.nameAr, 60), nameEn: str(c.nameEn, 60), icon: str(c.icon, 8), hidden: !!c.hidden });
+      out.categories.push({ id: id, nameAr: str(c.nameAr, 60), nameEn: str(c.nameEn, 60), icon: str(c.icon, 16), hidden: !!c.hidden });
     });
     var itemSeen = {};
     (Array.isArray(input.items) ? input.items : []).slice(0, 600).forEach(function (i) {
@@ -225,7 +250,7 @@
       var cat = String(i.cat || '');
       if (!catIds[cat]) {
         if (!out.categories.length) {
-          out.categories.push({ id: 'general', nameAr: 'عام', nameEn: 'General', icon: '🍽️', hidden: false });
+          out.categories.push({ id: 'general', nameAr: 'عام', nameEn: 'General', icon: 'plate', hidden: false });
           catIds.general = 1;
         }
         cat = out.categories[0].id;
@@ -238,7 +263,7 @@
         nameAr: str(i.nameAr, 80), nameEn: str(i.nameEn, 80),
         descAr: str(i.descAr, 300), descEn: str(i.descEn, 300),
         price: num(i.price, 0, 1000000, 0),
-        icon: str(i.icon, 8), image: safeImage(i.image),
+        icon: str(i.icon, 16), image: safeImage(i.image),
         tags: (Array.isArray(i.tags) ? i.tags : []).filter(function (t, k, a) { return TAGS.indexOf(t) >= 0 && a.indexOf(t) === k; }),
         soldOut: !!i.soldOut, hidden: !!i.hidden, sizes: sizes
       });
@@ -407,7 +432,7 @@
   }
 
   return {
-    TAGS: TAGS, PRESETS: PRESETS, SCHEMA: SCHEMA,
+    TAGS: TAGS, PRESETS: PRESETS, ICON_KEYS: ICON_KEYS, iconSvg: iconSvg, SCHEMA: SCHEMA,
     uid: uid, str: str, normHex: normHex, hexToRgb: hexToRgb, luminance: luminance, contrast: contrast,
     readableOn: readableOn, mix: mix, toDigits: toDigits, formatPrice: formatPrice, normSearch: normSearch,
     emptyData: emptyData, sampleData: sampleData, normalizeData: normalizeData, safeImage: safeImage,

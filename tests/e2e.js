@@ -57,7 +57,7 @@ async function step(name, fn) {
       await a.click('#add-cat');
       await a.click('#dlg-save');
       assert.match(await a.locator('#dlg-cat .err').innerText(), /at least one language/);
-      await a.fill('#c-ar', 'مقبلات'); await a.fill('#c-en', 'Starters'); await a.fill('#c-icon', '🥗');
+      await a.fill('#c-ar', 'مقبلات'); await a.fill('#c-en', 'Starters'); await a.click('#dlg-cat [data-icon=salad]');
       await a.click('#dlg-save');
       await a.locator('.cat[data-cat]', { hasText: 'Starters' }).waitFor();
       assert.equal(await a.locator('.cat').count(), 5);
@@ -69,7 +69,8 @@ async function step(name, fn) {
       assert.match(await a.locator('#dlg-item .err').innerText(), /item name/);
       await a.fill('#i-nameEn', 'Fattoush'); await a.fill('#i-nameAr', 'فتوش');
       await a.fill('#i-descEn', 'Crisp salad with sumac'); await a.fill('#i-descAr', 'سلطة مقرمشة بالسماق');
-      await a.selectOption('#i-cat', { label: '🥗 Starters' });
+      await a.selectOption('#i-cat', { label: 'Starters' });
+      await a.click('#dlg-item [data-icon=salad]');
       await a.check('#i-usesizes');
       const rows = a.locator('[data-size-row]');
       assert.equal(await rows.count(), 2);
@@ -83,9 +84,10 @@ async function step(name, fn) {
       assert.match(await a.locator('.row', { hasText: 'Fattoush' }).locator('.rp').innerText(), /40.*60/);
       const stored = await a.evaluate(() => JSON.parse(localStorage.getItem('menyu.data.v1')));
       const it = stored.items.find(i => i.nameEn === 'Fattoush');
-      assert.equal(it.sizes.length, 2); assert.match(it.image, /^data:image\/jpeg;base64,/); assert.deepEqual(it.tags.sort(), ['new', 'veg']);
+      assert.equal(it.icon, 'salad'); assert.equal(it.sizes.length, 2); assert.match(it.image, /^data:image\/jpeg;base64,/); assert.deepEqual(it.tags.sort(), ['new', 'veg']);
       // preview iframe updated through the storage event
       await pv().locator('.mv-name', { hasText: 'فتوش' }).waitFor();
+      await pv().locator('.mv-name', { hasText: 'فتوش' }).waitFor(); assert.equal(await pv().locator('.mv-cat-i svg').count(), 5);
     });
 
     await step('bad price is rejected', async () => {

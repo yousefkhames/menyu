@@ -11,7 +11,7 @@
       items: 'صنف', sold: 'نفد', hidden: 'مخفي', edit: 'تعديل', del: 'حذف', dup: 'نسخ', up: 'أعلى', down: 'أسفل', hide: 'إخفاء', show: 'إظهار',
       soldToggle: 'نفد / متاح', save: 'حفظ', cancel: 'إلغاء', close: 'إغلاق',
       nameAr: 'الاسم بالعربية', nameEn: 'الاسم بالإنجليزية', descAr: 'الوصف بالعربية', descEn: 'الوصف بالإنجليزية', category: 'القسم', price: 'السعر',
-      icon: 'رمز (إيموجي)', image: 'صورة', upload: 'رفع صورة', removeImg: 'إزالة الصورة', tags: 'الوسوم', useSizes: 'أحجام بأسعار مختلفة',
+      icon: 'الأيقونة', image: 'صورة', upload: 'رفع صورة', removeImg: 'إزالة الصورة', tags: 'الوسوم', useSizes: 'أحجام بأسعار مختلفة',
       sizeAr: 'الحجم (عربي)', sizeEn: 'الحجم (إنجليزي)', addSize: 'إضافة حجم', soldOut: 'نفد من المخزون', hiddenItem: 'إخفاء من القائمة',
       itemNew: 'صنف جديد', itemEdit: 'تعديل الصنف', catNew: 'قسم جديد', catEdit: 'تعديل القسم', needName: 'اكتب اسم الصنف بلغة واحدة على الأقل',
       needCat: 'أضف قسماً أولاً', needCatName: 'اكتب اسم القسم بلغة واحدة على الأقل', badPrice: 'السعر غير صحيح',
@@ -47,7 +47,7 @@
       items: 'items', sold: 'Sold out', hidden: 'Hidden', edit: 'Edit', del: 'Delete', dup: 'Duplicate', up: 'Move up', down: 'Move down', hide: 'Hide', show: 'Show',
       soldToggle: 'Sold out / available', save: 'Save', cancel: 'Cancel', close: 'Close',
       nameAr: 'Name (Arabic)', nameEn: 'Name (English)', descAr: 'Description (Arabic)', descEn: 'Description (English)', category: 'Category', price: 'Price',
-      icon: 'Icon (emoji)', image: 'Photo', upload: 'Upload photo', removeImg: 'Remove photo', tags: 'Tags', useSizes: 'Sizes with different prices',
+      icon: 'Icon', image: 'Photo', upload: 'Upload photo', removeImg: 'Remove photo', tags: 'Tags', useSizes: 'Sizes with different prices',
       sizeAr: 'Size (Arabic)', sizeEn: 'Size (English)', addSize: 'Add size', soldOut: 'Sold out', hiddenItem: 'Hide from the menu',
       itemNew: 'New item', itemEdit: 'Edit item', catNew: 'New category', catEdit: 'Edit category', needName: 'Enter the item name in at least one language',
       needCat: 'Add a category first', needCatName: 'Enter the category name in at least one language', badPrice: 'Price is not valid',
@@ -133,6 +133,27 @@
     });
     (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
     return n;
+  }
+
+
+  function iconNode(key, cls, fb) {
+    var n = el('span', { class: cls, 'aria-hidden': 'true' });
+    var svg = C.iconSvg(key);
+    if (svg) n.innerHTML = svg; // constant markup from our own icon table
+    else n.textContent = key || fb || '';
+    return n;
+  }
+  function iconPicker(get, set) {
+    var box = el('div', { class: 'iconpick', role: 'group' });
+    function draw() {
+      box.textContent = '';
+      box.appendChild(el('button', { type: 'button', class: 'ipb' + (!get() ? ' is-on' : ''), 'data-icon': '', 'aria-label': 'none', 'aria-pressed': String(!get()), onclick: function () { set(''); draw(); }, text: '∅' }));
+      C.ICON_KEYS.forEach(function (k) {
+        box.appendChild(el('button', { type: 'button', class: 'ipb' + (get() === k ? ' is-on' : ''), 'data-icon': k, 'aria-label': k, 'aria-pressed': String(get() === k), onclick: function () { set(k); draw(); } }, [iconNode(k, 'ipi')]));
+      });
+    }
+    draw();
+    return box;
   }
 
   /* ---------- chrome ---------- */
@@ -234,14 +255,14 @@
       var all = data.items.filter(function (i) { return i.cat === cat.id; });
       host.appendChild(el('section', { class: 'cat' + (cat.hidden ? ' is-hidden' : ''), 'data-cat': cat.id }, [
         el('header', { class: 'cat-h' }, [
-          el('span', { class: 'cat-i', 'aria-hidden': 'true', text: cat.icon || '•' }),
+          iconNode(cat.icon, 'cat-i', '•'),
           el('div', { class: 'cat-t' }, [el('b', { text: nm(cat) }), el('small', { text: all.length + ' ' + t('items') + (cat.hidden ? ' · ' + t('hidden') : '') })]),
           el('div', { class: 'acts' }, [
             ib('↑', t('up'), function () { snap(); C.moveBy(data.categories, cat.id, -1); commit(); }, ci === 0),
             ib('↓', t('down'), function () { snap(); C.moveBy(data.categories, cat.id, 1); commit(); }, ci === data.categories.length - 1),
             ib('✎', t('edit'), function () { openCat(cat); }),
             ib(cat.hidden ? '◌' : '◉', cat.hidden ? t('show') : t('hide'), function () { snap(); cat.hidden = !cat.hidden; commit(); }),
-            ib('🗑', t('del'), function () { deleteCat(cat); })
+            ib('✕', t('del'), function () { deleteCat(cat); })
           ])
         ]),
         el('ul', { class: 'rows' }, items.map(function (it) { return itemRow(it); }))
@@ -256,7 +277,7 @@
 
   function itemRow(it) {
     var info = C.itemPriceInfo(it);
-    var thumb = it.image ? el('img', { class: 'rt', src: it.image, alt: '' }) : el('span', { class: 'rt rt--ph', 'aria-hidden': 'true', text: it.icon || '🍽️' });
+    var thumb = it.image ? el('img', { class: 'rt', src: it.image, alt: '' }) : iconNode(it.icon || (data.categories.filter(function (c) { return c.id === it.cat; })[0] || {}).icon, 'rt rt--ph', 'plate');
     var sub = (it.nameAr && it.nameEn) ? (ui.lang === 'ar' ? it.nameEn : it.nameAr) : '';
     return el('li', { class: 'row' + (it.hidden ? ' is-hidden' : ''), 'data-item': it.id }, [
       thumb,
@@ -272,7 +293,7 @@
         ib('↓', t('down'), function () { snap(); C.moveItemInCategory(data.items, it.id, 1); commit(); }),
         ib('✎', t('edit'), function () { openItem(it); }),
         ib('⧉', t('dup'), function () { snap(); var c = JSON.parse(JSON.stringify(it)); c.id = C.uid('i'); var k = data.items.indexOf(it); data.items.splice(k + 1, 0, c); commit(); }),
-        ib('🗑', t('del'), function () { deleteItem(it); })
+        ib('✕', t('del'), function () { deleteItem(it); })
       ])
     ]);
   }
@@ -323,7 +344,7 @@
     var body = [
       field(t('nameAr'), el('input', { id: 'c-ar', value: draft.nameAr, maxlength: '60', dir: 'rtl', oninput: function (e) { draft.nameAr = e.target.value; } })),
       field(t('nameEn'), el('input', { id: 'c-en', value: draft.nameEn, maxlength: '60', dir: 'ltr', oninput: function (e) { draft.nameEn = e.target.value; } })),
-      field(t('icon'), el('input', { id: 'c-icon', value: draft.icon, maxlength: '4', oninput: function (e) { draft.icon = e.target.value; } }))
+      el('div', { class: 'fld' }, [el('span', { class: 'fld-l', text: t('icon') }), iconPicker(function () { return draft.icon; }, function (v) { draft.icon = v; })])
     ];
     dialog(cat ? t('catEdit') : t('catNew'), body, function () {
       if (!draft.nameAr.trim() && !draft.nameEn.trim()) return t('needCatName');
@@ -350,9 +371,10 @@
         field(t('descEn'), el('textarea', { id: 'i-descEn', rows: '2', maxlength: '300', dir: 'ltr', oninput: function (e) { d.descEn = e.target.value; }, text: d.descEn }))
       ]));
       wrap.appendChild(el('div', { class: 'two' }, [
-        field(t('category'), el('select', { id: 'i-cat', onchange: function (e) { d.cat = e.target.value; } }, data.categories.map(function (c) { return el('option', { value: c.id, text: (c.icon ? c.icon + ' ' : '') + nm(c), selected: c.id === d.cat }); }))),
-        field(t('icon'), el('input', { id: 'i-icon', value: d.icon, maxlength: '4', oninput: function (e) { d.icon = e.target.value; } }))
+        field(t('category'), el('select', { id: 'i-cat', onchange: function (e) { d.cat = e.target.value; } }, data.categories.map(function (c) { return el('option', { value: c.id, text: nm(c), selected: c.id === d.cat }); }))),
+        el('div')
       ]));
+      wrap.appendChild(el('div', { class: 'fld' }, [el('span', { class: 'fld-l', text: t('icon') }), iconPicker(function () { return d.icon; }, function (v) { d.icon = v; })]));
       wrap.appendChild(el('label', { class: 'chk' }, [el('input', { type: 'checkbox', id: 'i-usesizes', checked: useSizes, onchange: function (e) {
         useSizes = e.target.checked;
         if (useSizes && !d.sizes.length) d.sizes = [{ ar: '', en: '', price: d.price || 0 }, { ar: '', en: '', price: d.price || 0 }];
@@ -379,7 +401,7 @@
       wrap.appendChild(el('div', { class: 'fld' }, [
         el('span', { class: 'fld-l', text: t('image') }),
         el('div', { class: 'imgrow' }, [
-          d.image ? el('img', { class: 'rt', src: d.image, alt: '' }) : el('span', { class: 'rt rt--ph', text: d.icon || '🍽️' }),
+          d.image ? el('img', { class: 'rt', src: d.image, alt: '' }) : iconNode(d.icon, 'rt rt--ph', 'plate'),
           el('label', { class: 'btn ghost small', for: 'i-file', text: t('upload') }), fileIn,
           d.image ? btn(t('removeImg'), function () { d.image = ''; draw(); }, 'ghost small') : null
         ])

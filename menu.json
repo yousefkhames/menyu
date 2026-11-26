@@ -41,28 +41,28 @@
       "id": "hot",
       "nameAr": "مشروبات ساخنة",
       "nameEn": "Hot drinks",
-      "icon": "☕",
+      "icon": "cup",
       "hidden": false
     },
     {
       "id": "cold",
       "nameAr": "مشروبات باردة",
       "nameEn": "Cold drinks",
-      "icon": "🧊",
+      "icon": "glass",
       "hidden": false
     },
     {
       "id": "sweet",
       "nameAr": "حلويات",
       "nameEn": "Desserts",
-      "icon": "🍰",
+      "icon": "cake",
       "hidden": false
     },
     {
       "id": "bites",
       "nameAr": "خفيف",
       "nameEn": "Light bites",
-      "icon": "🥐",
+      "icon": "croissant",
       "hidden": false
     }
   ],
@@ -75,7 +75,7 @@
       "descAr": "شوت مركز من حبوب محمصة محلياً",
       "descEn": "A concentrated shot of locally roasted beans",
       "price": 45,
-      "icon": "☕",
+      "icon": "cup",
       "image": "",
       "tags": [
         "popular"
@@ -103,7 +103,7 @@
       "descAr": "إسبريسو مع حليب مبخر ورغوة كثيفة",
       "descEn": "Espresso with steamed milk and thick foam",
       "price": 70,
-      "icon": "☕",
+      "icon": "cup",
       "image": "",
       "tags": [],
       "soldOut": false,
@@ -129,7 +129,7 @@
       "descAr": "حليب مخملي وإسبريسو ناعم",
       "descEn": "Silky milk and smooth espresso",
       "price": 75,
-      "icon": "🥛",
+      "icon": "cup",
       "image": "",
       "tags": [],
       "soldOut": false,
@@ -155,7 +155,7 @@
       "descAr": "نعناع طازج وشاي أخضر",
       "descEn": "Fresh mint and green tea",
       "price": 35,
-      "icon": "🍵",
+      "icon": "cup",
       "image": "",
       "tags": [
         "veg"
@@ -172,7 +172,7 @@
       "descAr": "تقدم مع قطعة راحة",
       "descEn": "Served with a piece of delight",
       "price": 40,
-      "icon": "☕",
+      "icon": "cup",
       "image": "",
       "tags": [
         "popular"
@@ -189,7 +189,7 @@
       "descAr": "إسبريسو بارد مع حليب وثلج",
       "descEn": "Cold espresso with milk and ice",
       "price": 80,
-      "icon": "🧊",
+      "icon": "glass",
       "image": "",
       "tags": [
         "new"
@@ -206,7 +206,7 @@
       "descAr": "ليمون معصور ونعناع وثلج مجروش",
       "descEn": "Squeezed lemon, mint and crushed ice",
       "price": 55,
-      "icon": "🍋",
+      "icon": "juice",
       "image": "",
       "tags": [
         "veg"
@@ -223,7 +223,7 @@
       "descAr": "فراولة وليمون وصودا",
       "descEn": "Strawberry, lime and soda",
       "price": 65,
-      "icon": "🍓",
+      "icon": "glass",
       "image": "",
       "tags": [],
       "soldOut": false,
@@ -238,7 +238,7 @@
       "descAr": "ساخنة مع شربات خفيف",
       "descEn": "Warm, with light syrup",
       "price": 90,
-      "icon": "🍮",
+      "icon": "plate",
       "image": "",
       "tags": [
         "popular"
@@ -255,7 +255,7 @@
       "descAr": "شوكولاتة داكنة وجوز",
       "descEn": "Dark chocolate and walnuts",
       "price": 70,
-      "icon": "🍫",
+      "icon": "cake",
       "image": "",
       "tags": [],
       "soldOut": true,
@@ -270,7 +270,7 @@
       "descAr": "قطعة بصوص التوت",
       "descEn": "A slice with berry sauce",
       "price": 95,
-      "icon": "🍰",
+      "icon": "cake",
       "image": "",
       "tags": [
         "new"
@@ -287,7 +287,7 @@
       "descAr": "مخبوز كل صباح",
       "descEn": "Baked every morning",
       "price": 60,
-      "icon": "🥐",
+      "icon": "croissant",
       "image": "",
       "tags": [
         "veg"
@@ -304,7 +304,7 @@
       "descAr": "جبنة حلومي وطماطم وزعتر",
       "descEn": "Halloumi, tomato and za'atar",
       "price": 85,
-      "icon": "🥪",
+      "icon": "sandwich",
       "image": "",
       "tags": [
         "veg"
@@ -321,7 +321,7 @@
       "descAr": "سجق إسكندراني على الطريقة المعروفة",
       "descEn": "Alexandrian sausage, the classic way",
       "price": 95,
-      "icon": "🌶️",
+      "icon": "sandwich",
       "image": "",
       "tags": [
         "spicy"

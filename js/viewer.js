@@ -108,10 +108,16 @@
       return monogram(data, size);
     }
 
-    function thumb(item, cat, size) {
+    function iconNode(key, cls) {
+      var n = el('span', { class: cls, 'aria-hidden': 'true' });
+      var svg = C.iconSvg(key);
+      if (svg) n.innerHTML = svg; // constant markup from our own icon table, keyed lookup only
+      else if (key) n.textContent = key;
+      return n;
+    }
+    function thumb(item, cat) {
       if (item.image) return el('img', { class: 'mv-thumb', src: item.image, alt: '', loading: 'lazy' });
-      var icon = item.icon || (cat && cat.icon) || '';
-      return el('span', { class: 'mv-thumb mv-thumb--ph', 'aria-hidden': 'true' }, [icon ? el('span', { text: icon }) : null]);
+      return iconNode(item.icon || (cat && cat.icon) || '', 'mv-thumb mv-thumb--ph');
     }
 
     function tagBadges(item) {
@@ -168,7 +174,7 @@
         if (!list.length) return;
         any = true;
         host.appendChild(el('section', { class: 'mv-sec', id: 'cat-' + cat.id }, [
-          el('h2', { class: 'mv-cat' }, [cat.icon ? el('span', { class: 'mv-cat-i', 'aria-hidden': 'true', text: cat.icon }) : null, document.createTextNode(C.pick(cat, 'name', lang))]),
+          el('h2', { class: 'mv-cat' }, [cat.icon ? iconNode(cat.icon, 'mv-cat-i') : null, document.createTextNode(C.pick(cat, 'name', lang))]),
           el('div', { class: 'mv-grid' }, list.map(function (i) { return itemCard(i, cat); }))
         ]));
       });
@@ -178,14 +184,14 @@
     function renderChips() {
       var host = nodes.chips;
       host.textContent = '';
-      function chip(label, id) {
+      function chip(label, id, icon) {
         host.appendChild(el('button', { type: 'button', class: 'mv-chip' + (state.cat === id ? ' is-on' : ''), 'data-cat': id, 'aria-pressed': String(state.cat === id),
-          onclick: function () { state.cat = id; renderChips(); renderList(); if (id) { var s = rootEl.querySelector('#cat-' + id); if (s) s.scrollIntoView({ block: 'start', behavior: 'smooth' }); } } }, [label]));
+          onclick: function () { state.cat = id; renderChips(); renderList(); if (id) { var s = rootEl.querySelector('#cat-' + id); if (s) s.scrollIntoView({ block: 'start', behavior: 'smooth' }); } } }, [icon ? iconNode(icon, 'mv-chip-i') : null, label]));
       }
-      chip(t().all, '');
+      chip(t().all, '', '');
       data.categories.forEach(function (c) {
         if (c.hidden || !data.items.some(function (i) { return i.cat === c.id && !i.hidden; })) return;
-        chip((c.icon ? c.icon + ' ' : '') + C.pick(c, 'name', lang), c.id);
+        chip(C.pick(c, 'name', lang), c.id, c.icon);
       });
     }
 
@@ -242,7 +248,7 @@
       var body = el('div', { class: 'mv-detail' });
       function draw() {
         body.textContent = '';
-        var big = item.image ? el('img', { class: 'mv-big', src: item.image, alt: '' }) : el('span', { class: 'mv-big mv-big--ph', 'aria-hidden': 'true' }, [el('span', { text: item.icon || (cat && cat.icon) || '' })]);
+        var big = item.image ? el('img', { class: 'mv-big', src: item.image, alt: '' }) : iconNode(item.icon || (cat && cat.icon) || '', 'mv-big mv-big--ph');
         body.appendChild(big);
         body.appendChild(el('h3', { class: 'mv-dname', text: name }));
         if (desc) body.appendChild(el('p', { class: 'mv-ddesc', text: desc }));
