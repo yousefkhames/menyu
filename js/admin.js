@@ -284,7 +284,7 @@
       el('div', { class: 'rb' }, [
         el('b', { text: C.pick(it, 'name', ui.lang) || '—' }),
         el('small', { text: sub }),
-        el('span', { class: 'rp', text: C.formatPrice(info.min, data.locale, 'en') + (info.multi && info.max !== info.min ? ' – ' + C.formatPrice(info.max, data.locale, 'en') : '') }),
+        el('span', { class: 'rp', text: C.formatPrice(info.min, data.locale, ui.lang) + (info.multi && info.max !== info.min ? ' – ' + C.formatPrice(info.max, data.locale, ui.lang) : '') }),
         el('span', { class: 'badges' }, [it.soldOut ? el('i', { class: 'bd bd--out', text: t('sold') }) : null, it.hidden ? el('i', { class: 'bd', text: t('hidden') }) : null])
       ]),
       el('div', { class: 'acts' }, [
