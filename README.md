@@ -1,3 +1,21 @@
+<div align="center">
+
+<img src="assets/yk-logo.svg" width="64" alt="YK">
+
+# menyu
+
+**menyu** · demo / portfolio project
+
+**منشئ منيو QR للكافيهات** · مشروع تجريبي للعرض
+
+[Live demo](https://yousefkhames.github.io/menyu/) · By Yousef Khames · من تطوير يوسف خميس
+
+<img src="assets/og.png" width="640" alt="menyu preview">
+
+</div>
+
+---
+
 # menyu · منيو
 
 A white-label QR menu builder for cafes: bilingual categories and items, tags, optional photos, a sold-out toggle, a published menu page and a printable QR table card. Arabic RTL and English LTR. Static HTML, CSS and JavaScript; no build, account, API or payment processor, and no ordering.
