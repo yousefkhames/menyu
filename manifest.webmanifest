@@ -1,10 +1,1 @@
-{
-  "name": "Menyu QR menu builder",
-  "short_name": "Menyu",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#f7f0e6",
-  "theme_color": "#c24d28",
-  "icons": [{ "src": "assets/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
-}
+{"name":"menyu","short_name":"menyu","start_url":"./","scope":"./","display":"standalone","background_color":"#F8FAFC","theme_color":"#F8FAFC","icons":[{"src":"assets/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}

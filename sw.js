@@ -1,17 +1,17 @@
-/* Menyu service worker: network first, cache fallback, so the app and menu keep working offline after one visit. */
-const CACHE = 'menyu-v3';
-const PRE = ['./', 'index.html', 'menu.html', 'css/fonts.css', 'fonts/cairo-arabic-400-normal.woff2', 'fonts/cairo-arabic-700-normal.woff2', 'fonts/cairo-latin-400-normal.woff2', 'fonts/cairo-latin-700-normal.woff2'];
-self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(PRE)).catch(() => {}).then(() => self.skipWaiting())); });
-self.addEventListener('activate', e => e.waitUntil(
-  caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())
-));
-self.addEventListener('fetch', e => {
-  const req = e.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
-  e.respondWith(
-    fetch(req).then(res => {
-      if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
-      return res;
-    }).catch(() => caches.match(req, { ignoreSearch: true }))
-  );
+const CACHE = 'menyu-v1';
+const FILES = ['./','index.html','manifest.webmanifest','base.css','kit-base.js','fonts/fonts.css','fonts/Cairo-arabic.woff2','fonts/Cairo-latin.woff2','assets/kit-theme.js','assets/qrcode.js','assets/yk-logo.svg','assets/favicon.svg','menu-data.js','core.js','i18n.js','app.js','styles.css'];
+self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())); });
+self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => /^menyu-v\d+$/.test(k) && k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
+self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
+  const url = new URL(e.request.url);
+  if (!FILES.some((file) => new URL(file, self.registration.scope).pathname === url.pathname)) return;
+  const request = new Request(url.origin + url.pathname);
+  e.respondWith((async () => {
+    try {
+      const response = await fetch(e.request);
+      if (response.ok) { try { await (await caches.open(CACHE)).put(request, response.clone()); } catch { /* cache unavailable */ } return response; }
+      return response.status >= 500 ? (await (await caches.open(CACHE)).match(request)) || response : response;
+    } catch { return (await (await caches.open(CACHE)).match(request)) || new Response('Offline', { status: 503 }); }
+  })());
 });

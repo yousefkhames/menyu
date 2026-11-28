@@ -1,95 +1,51 @@
-<p align="center"><img src="docs/logo.png" width="96" alt="Menyu logo"></p>
+# menyu · منيو
 
-<h1 align="center">Menyu</h1>
-<p align="center"><b>White-label QR menu builder for cafes and restaurants.</b><br>
-Arabic and English with real RTL. Your logo, your colors, your currency. No server, no sign-up, free.</p>
+A white-label QR menu builder for cafes: bilingual categories and items, tags, optional photos, a sold-out toggle, a published menu page and a printable QR table card. Arabic RTL and English LTR. Static HTML, CSS and JavaScript; no build, account, API or payment processor, and no ordering.
 
-<p align="center"><a href="https://yousefkhames.github.io/menyu/"><b>Open the live builder</b></a> ·
-<a href="https://yousefkhames.github.io/menyu/menu.html">See a customer menu</a></p>
+<div lang="ar" dir="rtl">أداة قوائم طعام بكود QR للمقاهي. عدّل القائمة، صدّر ملف menu-data.js، ثم انشره، واطبع بطاقة الطاولة. لا يوجد طلب أو دفع داخل الأداة.</div>
 
-<p align="center">
-<img src="docs/menu-ar.png" width="230" alt="Customer menu in Arabic">
-<img src="docs/order-en.png" width="230" alt="Order sheet in English with WhatsApp button">
-<img src="docs/menu-noir.png" width="230" alt="Same menu rebranded with the Noir palette and list layout">
-</p>
+<img src="assets/yk-logo.svg" width="24" height="24" alt=""> **By Yousef Khames · من تطوير يوسف خميس**
 
-## Screenshots
+## Preview locally
 
-Captured from the live site (https://yousefkhames.github.io/menyu/).
+```sh
+python3 -m http.server 8080 --bind 127.0.0.1
+```
 
-<p>
-  <img src="docs/screenshots/live-desktop.png" alt="menyu desktop view" width="640">
-  <img src="docs/screenshots/live-mobile.png" alt="menyu mobile view" width="200">
-</p>
+Open `http://localhost:8080/`. Use a fresh browser profile. The sample menu is **demo content** with fictional items and prices; it carries a Demo banner and every item has a Demo tag.
 
-## The pitch
+Screenshots in `docs/` show the demo menu (synthetic data). Re-take them after rebranding.
 
-A cafe owner wants a menu on a QR code, in two languages, in their own colors, today. Menyu is one folder of static files. You open the builder, type the shop name, drop in a logo, pick colors, add the items, and print the QR. Customers scan, browse in Arabic or English, tap items into an order, and send it to the shop on WhatsApp with their table number already filled in.
+## Set up a cafe
 
-Built so one codebase can be re-branded and handed to any shop. All branding lives in a settings screen and in one exportable `menu.json`.
+1. Open **Builder** (`#/edit`). Set the shop name in both languages and the currency label. Add categories and items. Prices are optional: an item without a price shows "Ask for the price".
+2. Press **Clear demo items** to remove the sample rows, then add your own.
+3. Press **Export menu-data.js**, replace `menu-data.js` in the repository with the downloaded file, commit and publish. Builder edits are saved only in this browser (a draft); visitors see the published `menu-data.js` until you replace it. **Preview draft** shows the draft on your device.
+4. Open **QR code**, paste the published page link, test-scan with a phone, then print the table card. The QR code is generated on your device with no internet. Links that start with localhost or a private address are flagged because guests cannot open them.
+5. For static theming edit `assets/kit-theme.js` (`name`, optional `logo`, `accent`, `mode`, `light`, `dark`). Keep `assets/yk-logo.svg` and `assets/favicon.svg` for the developer credit.
+6. Backup and move: **Export JSON backup** and **Import JSON** move a draft between devices. **Export single-file HTML** gives a one-file menu for hosts that accept files only. The menu schema (`v: 1`: shop, currency, categories, items) is shared with the matbakh kit.
 
-## Features
+## Deploy (GitHub Pages)
 
-**For the shop owner (builder)**
-- Brand settings: shop name and tagline in Arabic and English, logo upload (resized in the browser), 6 ready palettes plus custom colors, corner style, card or classic-list layout. A contrast check warns when text is hard to read.
-- Currency symbol in both languages, symbol before or after, decimals, Latin or Arabic-Indic digits.
-- Categories and items: names and descriptions in both languages, photo upload, 15 built-in line icons (no photo needed), tags (new, popular, vegetarian, spicy, gluten free), sizes with their own prices, sold-out switch, hide, duplicate, reorder, delete with undo.
-- Bulk price change (for example +10%, rounded to the nearest 5) for one category or all.
-- "Check before printing" list: missing translations, zero prices, empty categories, missing WhatsApp number, low contrast.
-- QR code for the menu link (SVG and PNG download) and printable table cards: one QR per table that pre-fills the table number in the order.
-- Export a standalone `menu.html` (one file, fonts included, works offline) or `menu.json` (all settings and items). Import a `menu.json` back.
-- Undo (button and Ctrl+Z), live phone preview next to the editor, builder UI in Arabic or English.
-
-**For customers (menu page)**
-- Opens in the shop's default language, one tap to switch. Full RTL layout in Arabic.
-- Search that understands Arabic spelling variants (أ/ا, ة/ه, diacritics), category chips, tag filters.
-- Item sheet with sizes and quantity, order list with quantities, total, table number, name and notes.
-- Send the order as a WhatsApp message (built from the shop number) or copy the text.
-- Works offline after the first visit (service worker).
-
-## How to hand it to a new shop
-
-1. Fork this repo (or download it) and enable GitHub Pages, or upload the folder to any static host.
-2. Open `index.html`, go to **Brand**, set the name, logo, colors, currency and WhatsApp number.
-3. Add categories and items in **Menu**.
-4. In **Share**, export `menu.json` and commit it as `menu.json` at the repo root. The customer page `menu.html` reads it. Or export the standalone `menu.html` and put that file on the shop hosting.
-5. Put the public menu link in **Share**, download the QR, or print the table cards.
-
-## Tech
-
-- Plain HTML, CSS and JavaScript. No framework, no build step, no backend, no tracking, no network calls at runtime.
-- Data lives in `localStorage` (builder) and `menu.json` / embedded JSON (customers).
-- Cairo font bundled (SIL OFL). QR generation by [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) (MIT), vendored in `js/vendor`. See `THIRD_PARTY.md`.
-- Imported JSON is validated and cleaned (`normalizeData`): colors, URLs, tags, images and numbers are sanitized, and user text is always inserted as text, never as HTML.
+Create the repository `yousefkhames/menyu`, commit these files to `main`, then Settings → Pages → Deploy from a branch → `main` / root. The page appears at `https://yousefkhames.github.io/menyu/`. All paths are relative.
 
 ## Tests
 
-```bash
-npm install        # only playwright-core and jsqr, for the tests
+```sh
+npm run test:unit  # Node 22+, no install
+npm run test:e2e   # headless Chrome available as google-chrome
 npm test
 ```
 
-- `tests/unit.test.js`: 21 unit tests for the logic (prices, colors and contrast, Arabic search, validation of hostile input, cart and order message, WhatsApp number handling, audit, bulk prices, QR matrix, standalone export).
-- `tests/e2e.js`: a 36-step click-through in real Chrome (via playwright-core): add and edit categories and items with photo upload, undo, bulk prices, rebrand and see it in the live preview, generate a QR and decode it back with a QR reader, export and re-import, export the standalone file and open it with the network blocked, place an order in the customer menu and check the WhatsApp link, offline reload, mobile and Arabic layouts without horizontal overflow, and no console errors.
-- `tests/screens.js` regenerates the screenshots in `docs/`.
+## Honest limits and privacy
 
-## Honest limits
-
-- It is a menu and an order message, not a POS. Orders are sent as a WhatsApp text to the shop. There is no kitchen screen, no payments, no order history.
-- There is no server, so edits do not sync between devices. The builder saves in the browser it was used in. Export `menu.json` to back up or move to another device. Clearing browser data erases the builder data (the exported files are the safe copy).
-- Customers see a menu only after you publish it (`menu.json` in the repo, or the standalone `menu.html`). Changing items in the builder does not change the live menu until you export and upload again.
-- Photos are stored as small compressed images inside `localStorage`, which is limited to about 5 MB per browser. A menu with many large photos can fill it. The builder tells you when saving fails.
-- The WhatsApp order opens `wa.me` and needs the shop number in international format or a local number plus the country code in settings.
-- Built-in icons are simple line drawings. Photos look better.
-- The Arabic and English UI text was written by the author. Have a native speaker proof-read it for your shop.
-- Tested in Chrome only (desktop and mobile emulation). Other modern browsers should work, but they were not tested.
+- Static and device-local: the draft does not sync between devices. Clearing site data erases the draft; export first.
+- Photos are resized in the browser and embedded in the exported file as data; many photos make `menu-data.js` large.
+- The QR code only links to the page. Nothing is counted: there are no scan or visit statistics.
+- Prices and availability are what the owner typed; the sold-out toggle is manual.
+- Contrast of the default theme pairs is checked; there is no blanket WCAG claim. Retest custom colours.
+- No customer data is collected or stored.
 
 ## License
 
-MIT. See `LICENSE`.
-
-## Round 2 review notes
-- "Copy order text" now reports a failure honestly when the browser blocks copying (it used to say "Copied" regardless).
-- Reviewed and already solid: data normaliser on load/import, undo after import, country-code WhatsApp links, empty states.
-- Limit: WhatsApp links are only verified as generated URLs.
-- Offline: a service worker precaches the app shell and the bundled fonts (added in round 2 review).
+MIT, copyright Yousef Khames. See `LICENSE`. Bundled Cairo font keeps its own SIL OFL license; `assets/qrcode.js` is qrcode-generator by Kazuhiko Arase (MIT, see `assets/qrcode.LICENSE.txt`).
